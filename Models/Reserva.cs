@@ -15,16 +15,19 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+            // Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
+            int hospedesRecebidos = hospedes?.Count ?? 0;
+            int hospedesPresentes = this.Hospedes?.Count ?? 0;
+            bool podeAcomodar = (Suite?.Capacidade ?? 0) >= (hospedesRecebidos + hospedesPresentes);
+
+            if (podeAcomodar)
             {
                 Hospedes = hospedes;
             }
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                // Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
+                throw new Exception("Capacidade da suíte é menor que o número de hóspedes recebido.");
             }
         }
 
@@ -35,23 +38,19 @@ namespace DesafioProjetoHospedagem.Models
 
         public int ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+            // Retorna a quantidade de hóspedes (propriedade Hospedes)
+            return Hospedes?.Count ?? 0;
         }
 
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            // Retorna o valor da diária
+            decimal valor = this.DiasReservados * (Suite?.ValorDiaria ?? 0);
 
             // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            if (this.DiasReservados >= 10)
             {
-                valor = 0;
+                valor *= 0.9m;
             }
 
             return valor;
